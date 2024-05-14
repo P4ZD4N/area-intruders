@@ -1,3 +1,5 @@
+package panels;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
@@ -5,9 +7,7 @@ import java.awt.*;
 public class MenuPanel extends JPanel {
 
     private JLabel labelTitle;
-    private JButton jButtonPlay;
-    private JButton jButtonInstructions;
-    private JButton jButtonExit;
+    private MenuPanelCenter centerPanel;
     private JLabel labelAuthor;
 
     public MenuPanel() {
@@ -16,66 +16,47 @@ public class MenuPanel extends JPanel {
         setBorder(new EmptyBorder(50, 0, 50, 0));
         setLayout(new BorderLayout());
 
-        this.labelTitle = new JLabel("Area Intruders");
+        labelTitle = new JLabel("Area Intruders");
         labelTitle.setFont(new Font("Arial", Font.BOLD, 48));
         labelTitle.setForeground(Color.WHITE);
         labelTitle.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
-        this.jButtonPlay = new JButton("Play");
-        jButtonPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jButtonPlay.addActionListener(e -> startGame());
-        jButtonPlay.setBackground(Color.WHITE);
-        jButtonPlay.setSize(300, 100);
+        centerPanel = new MenuPanelCenter();
 
-        this.jButtonInstructions = new JButton("Instructions");
-        jButtonInstructions.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jButtonInstructions.addActionListener(e -> displayInstructions());
-        jButtonInstructions.setBackground(Color.WHITE);
-
-        this.jButtonExit = new JButton("Exit");
-        jButtonExit.setAlignmentX(Component.CENTER_ALIGNMENT);
-        jButtonExit.addActionListener(e -> exitGame());
-        jButtonExit.setBackground(Color.WHITE);
-
-        this.labelAuthor = new JLabel("® 2024 Wiktor Chudy. All Rights Reserved.");
+        labelAuthor = new JLabel("® 2024 Wiktor Chudy. All Rights Reserved.");
         labelAuthor.setFont(new Font("Arial", Font.BOLD, 24));
         labelAuthor.setForeground(Color.WHITE);
         labelAuthor.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.setLayout(new BoxLayout(buttonPanel, BoxLayout.Y_AXIS));
-        buttonPanel.setBackground(Color.BLACK);
-        buttonPanel.add(Box.createVerticalStrut(50));
-        buttonPanel.add(jButtonPlay);
-        buttonPanel.add(Box.createVerticalStrut(20));
-        buttonPanel.add(jButtonInstructions);
-        buttonPanel.add(Box.createVerticalStrut(20));
-        buttonPanel.add(jButtonExit);
-
         add(labelTitle, BorderLayout.NORTH);
-        add(buttonPanel, BorderLayout.CENTER);
+        add(centerPanel, BorderLayout.CENTER);
         add(labelAuthor, BorderLayout.SOUTH);
 
         revalidate();
         repaint();
     }
 
-    public void startGame() {
-
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(new GamePanel());
-        frame.revalidate();
-        frame.repaint();
+    public JLabel getLabelTitle() {
+        return labelTitle;
     }
 
-    public void displayInstructions() {
-
-        JOptionPane.showMessageDialog(this, "s", "ins", JOptionPane.INFORMATION_MESSAGE);
+    public void setLabelTitle(JLabel labelTitle) {
+        this.labelTitle = labelTitle;
     }
 
-    public void exitGame() {
+    public MenuPanelCenter getCenterPanel() {
+        return centerPanel;
+    }
 
-        System.exit(0);
+    public void setCenterPanel(MenuPanelCenter centerPanel) {
+        this.centerPanel = centerPanel;
+    }
+
+    public JLabel getLabelAuthor() {
+        return labelAuthor;
+    }
+
+    public void setLabelAuthor(JLabel labelAuthor) {
+        this.labelAuthor = labelAuthor;
     }
 }
