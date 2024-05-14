@@ -2,7 +2,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
-public class Panel extends JPanel {
+public class MenuPanel extends JPanel {
 
     private JLabel labelTitle;
     private JButton jButtonPlay;
@@ -10,19 +10,20 @@ public class Panel extends JPanel {
     private JButton jButtonExit;
     private JLabel labelAuthor;
 
-    public Panel() {
+    public MenuPanel() {
 
         setBackground(Color.BLACK);
         setBorder(new EmptyBorder(50, 0, 50, 0));
         setLayout(new BorderLayout());
 
-        this.labelTitle = new JLabel("Cosmic Defenders");
+        this.labelTitle = new JLabel("Area Intruders");
         labelTitle.setFont(new Font("Arial", Font.BOLD, 48));
         labelTitle.setForeground(Color.WHITE);
         labelTitle.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
         this.jButtonPlay = new JButton("Play");
         jButtonPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
+        jButtonPlay.addActionListener(e -> startGame());
         jButtonPlay.setBackground(Color.WHITE);
         jButtonPlay.setSize(300, 100);
 
@@ -54,6 +55,18 @@ public class Panel extends JPanel {
         add(labelTitle, BorderLayout.NORTH);
         add(buttonPanel, BorderLayout.CENTER);
         add(labelAuthor, BorderLayout.SOUTH);
+
+        revalidate();
+        repaint();
+    }
+
+    public void startGame() {
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(new GamePanel());
+        frame.revalidate();
+        frame.repaint();
     }
 
     public void displayInstructions() {

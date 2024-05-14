@@ -1,14 +1,17 @@
 import javax.swing.*;
 
-public class Frame extends JFrame {
+public class MainFrame extends JFrame {
 
-    public Frame() {
+    public MainFrame() {
 
-        super("Cosmic Defenders");
+        super("Area Intruders");
         setSize(1200, 800);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setVisible(true);
+
+        MenuPanel menuPanel = new MenuPanel();
+        add(menuPanel);
     }
 }
