@@ -1,6 +1,12 @@
+package frames;
+
+import panels.MenuPanel;
+
 import javax.swing.*;
 
 public class MainFrame extends JFrame {
+
+    private MenuPanel menuPanel;
 
     public MainFrame() {
 
@@ -11,7 +17,15 @@ public class MainFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        MenuPanel menuPanel = new MenuPanel();
+        menuPanel = new MenuPanel();
         add(menuPanel);
+    }
+
+    public MenuPanel getMenuPanel() {
+        return menuPanel;
+    }
+
+    public void setMenuPanel(MenuPanel menuPanel) {
+        this.menuPanel = menuPanel;
     }
 }
