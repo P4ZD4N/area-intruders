@@ -7,6 +7,11 @@ import java.awt.event.KeyListener;
 
 public class Ship extends JLabel implements KeyListener {
 
+    private Action moveLeftAction;
+    private Action moveRightAction;
+    private Action stopAction;
+    private Action shootAction;
+
     private int dx = 0;
     private static final int SPEED = 5;
 
@@ -15,24 +20,31 @@ public class Ship extends JLabel implements KeyListener {
         setHorizontalAlignment(SwingConstants.CENTER);
         setIcon(icon);
 
-        Action moveLeftAction = new AbstractAction() {
+        moveLeftAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dx = -SPEED;
             }
         };
 
-        Action moveRightAction = new AbstractAction() {
+        moveRightAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dx = SPEED;
             }
         };
 
-        Action stopAction = new AbstractAction() {
+        stopAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 dx = 0;
+            }
+        };
+
+        shootAction = new AbstractAction() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                shoot();
             }
         };
 
@@ -48,6 +60,9 @@ public class Ship extends JLabel implements KeyListener {
         getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released RIGHT"), "stopRight");
         getActionMap().put("stopRight", stopAction);
 
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "shoot");
+        getActionMap().put("shoot", shootAction);
+
         Timer timer = new Timer(10, e -> move());
         timer.start();
     }
@@ -57,8 +72,8 @@ public class Ship extends JLabel implements KeyListener {
 
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_LEFT -> dx = -1;
-            case KeyEvent.VK_RIGHT -> dx = 1;
+            case KeyEvent.VK_LEFT -> moveLeftAction.actionPerformed(null);
+            case KeyEvent.VK_RIGHT -> moveRightAction.actionPerformed(null);
         }
     }
 
@@ -67,17 +82,69 @@ public class Ship extends JLabel implements KeyListener {
 
         int keyCode = e.getKeyCode();
         switch (keyCode) {
-            case KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> dx = 0;
+            case KeyEvent.VK_LEFT, KeyEvent.VK_RIGHT -> stopAction.actionPerformed(null);
         }
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {
-
-    }
+    public void keyTyped(KeyEvent e) {}
 
     private void move() {
 
-        setLocation(getX() + dx, getY());
+        if (getX() + dx <= getParent().getWidth() / 2 &&
+            getX() + dx >= -(getParent().getWidth() / 2)
+        ) {
+
+            setLocation(getX() + dx, getY());
+        }
+    }
+
+    private void shoot() {
+
+        int bulletX = getX() + getWidth() / 2 - 2;
+        int bulletY = getY();
+        Bullet bullet = new Bullet(bulletX, bulletY);
+        getParent().add(bullet);
+        bullet.move();
+    }
+
+    public Action getMoveLeftAction() {
+        return moveLeftAction;
+    }
+
+    public void setMoveLeftAction(Action moveLeftAction) {
+        this.moveLeftAction = moveLeftAction;
+    }
+
+    public int getDx() {
+        return dx;
+    }
+
+    public void setDx(int dx) {
+        this.dx = dx;
+    }
+
+    public Action getShootAction() {
+        return shootAction;
+    }
+
+    public void setShootAction(Action shootAction) {
+        this.shootAction = shootAction;
+    }
+
+    public Action getStopAction() {
+        return stopAction;
+    }
+
+    public void setStopAction(Action stopAction) {
+        this.stopAction = stopAction;
+    }
+
+    public Action getMoveRightAction() {
+        return moveRightAction;
+    }
+
+    public void setMoveRightAction(Action moveRightAction) {
+        this.moveRightAction = moveRightAction;
     }
 }
