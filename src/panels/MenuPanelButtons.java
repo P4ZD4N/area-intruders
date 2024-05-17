@@ -76,9 +76,15 @@ public class MenuPanelButtons extends JPanel {
             frame.getContentPane().removeAll();
 
             if (isShip1Selected) {
-                frame.getContentPane().add(new GamePanel(new Ship(new ImageIcon("src/img/1.png"))));
+                frame.getContentPane().add(new GamePanel(
+                        new Ship(new ImageIcon("src/img/1.png")),
+                        nickname
+                ));
             } else if (isShip2Selected) {
-                frame.getContentPane().add(new GamePanel(new Ship(new ImageIcon("src/img/2.png"))));
+                frame.getContentPane().add(new GamePanel(
+                        new Ship(new ImageIcon("src/img/2.png")),
+                        nickname
+                ));
             }
 
             frame.revalidate();
