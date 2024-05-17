@@ -3,30 +3,37 @@ package panels;
 import game.Ship;
 
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel {
 
-    private Ship controlledLabel;
+    private GamePanelTop top;
+    private GamePanelBottom bottom;
 
-    public GamePanel(Ship ship) {
+    public GamePanel(Ship ship, String nickname) {
 
-        setBackground(Color.BLACK);
-        setBorder(new EmptyBorder(50, 0, 50, 0));
         setLayout(new BorderLayout());
 
-        controlledLabel = ship;
-        controlledLabel.addKeyListener(controlledLabel);
+        bottom = new GamePanelBottom(nickname, ship);
+        top = new GamePanelTop(ship, bottom);
 
-        add(controlledLabel, BorderLayout.SOUTH);
-    }
+        add(top, BorderLayout.CENTER);
+        add(bottom, BorderLayout.SOUTH);
 
-    public Ship getControlledLabel() {
-        return controlledLabel;
-    }
+        setFocusable(true);
+        requestFocusInWindow();
+        addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
 
-    public void setControlledLabel(Ship controlledLabel) {
-        this.controlledLabel = controlledLabel;
+
+                    top.pauseGame();
+                    top.displayPauseOptions();
+                }
+            }
+        });
     }
 }
