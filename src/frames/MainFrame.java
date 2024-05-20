@@ -18,6 +18,7 @@ public class MainFrame extends JFrame {
         setVisible(true);
 
         menuPanel = new MenuPanel();
+        getRootPane().setDefaultButton(menuPanel.getCenterPanel().getMenuPanelCenterLeft().getMenuPanelButtons().getButtonPlay());
         add(menuPanel);
     }
 
