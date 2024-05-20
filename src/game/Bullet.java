@@ -9,7 +9,7 @@ public class Bullet extends JLabel {
 
     public Bullet(int x, int y) {
 
-        setBounds(x, y, 5, 5);
+        setBounds(x, y, 10, 10);
         setBackground(Color.GREEN);
         setOpaque(true);
     }
