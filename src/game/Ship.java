@@ -91,9 +91,7 @@ public class Ship extends JLabel implements KeyListener {
 
     private void move() {
 
-        if (getX() + dx <= getParent().getWidth() / 2 &&
-            getX() + dx >= -(getParent().getWidth() / 2)
-        ) {
+        if (getX() + dx <= 1150 && getX() + dx >= 0) {
 
             setLocation(getX() + dx, getY());
         }
