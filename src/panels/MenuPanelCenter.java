@@ -20,4 +20,12 @@ public class MenuPanelCenter extends JPanel {
         add(menuPanelCenterLeft);
         add(menuPanelCenterRight);
     }
+
+    public MenuPanelCenterLeft getMenuPanelCenterLeft() {
+        return menuPanelCenterLeft;
+    }
+
+    public MenuPanelCenterRight getMenuPanelCenterRight() {
+        return menuPanelCenterRight;
+    }
 }
