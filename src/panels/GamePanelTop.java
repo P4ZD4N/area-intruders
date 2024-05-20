@@ -25,13 +25,13 @@ public class GamePanelTop extends JPanel {
 
         setBackground(Color.BLACK);
         setBorder(new EmptyBorder(0, 0, 50, 0));
-        setLayout(new BorderLayout());
+        setLayout(null);
 
-        add(ship, BorderLayout.SOUTH);
+        add(ship);
+        ship.setBounds(575, 600, 50, 50);
 
         enemyRows = new ArrayList<>();
         createEnemyRows();
-
         timer = new Timer(2000, e -> moveEnemies());
         timer.start();
     }
@@ -40,8 +40,8 @@ public class GamePanelTop extends JPanel {
 
         final int ENEMY_WIDTH = 30;
         final int ENEMY_HEIGHT = 30;
-        final int ROW_COUNT = 6;
-        final int COLUMN_COUNT = 20;
+        final int ROW_COUNT = 10;
+        final int COLUMN_COUNT = 30;
         final int HORIZONTAL_GAP = 10;
         final int VERTICAL_GAP = 10;
 
@@ -55,7 +55,7 @@ public class GamePanelTop extends JPanel {
                 int y = i * (ENEMY_HEIGHT + VERTICAL_GAP);
                 enemy.setBounds(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
                 row.add(enemy);
-                add(enemy, BorderLayout.NORTH);
+                add(enemy);
             }
             enemyRows.add(row);
         }
@@ -68,6 +68,15 @@ public class GamePanelTop extends JPanel {
             for (Enemy enemy : row) {
 
                 enemy.setLocation(enemy.getX(), enemy.getY() + enemy.getHeight());
+                int enemyY = enemy.getY();
+                int enemyBottomY = enemyY + enemy.getHeight();
+                int shipY = ship.getY();
+                int shipBottomY = shipY + ship.getHeight();
+                if (enemyBottomY >= shipY && enemyY <= shipBottomY) {
+                    timer.stop();
+                    exitGame();
+                    return;
+                }
             }
         }
 
@@ -126,12 +135,12 @@ public class GamePanelTop extends JPanel {
 
     public void displayPauseOptions() {
 
-        Object[] options = {"Wznów", "Wyjdź"};
+        Object[] options = {"Resume", "Exit"};
 
         int choice = JOptionPane.showOptionDialog(
                 this,
-                "Gra została zatrzymana.",
-                "Pauza",
+                "Game paused.",
+                "Pause",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
                 null,
@@ -144,12 +153,17 @@ public class GamePanelTop extends JPanel {
             resumeGame();
         } else if (choice == JOptionPane.NO_OPTION) {
 
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            frame.getContentPane().removeAll();
-            frame.getContentPane().add(new MenuPanel());
-            frame.revalidate();
-            frame.repaint();
+            exitGame();
         }
+    }
+
+    private void exitGame() {
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(new MenuPanel());
+        frame.revalidate();
+        frame.repaint();
     }
 
     public Ship getShip() {
