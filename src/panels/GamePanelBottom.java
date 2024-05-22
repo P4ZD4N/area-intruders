@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 
 public class GamePanelBottom extends JPanel {
 
+    private String nickname;
     private JPanel labelPanel;
     private JPanel buttonsPanel;
     private JLabel playerNickname;
@@ -19,6 +20,8 @@ public class GamePanelBottom extends JPanel {
     private int score = 0;
 
     public GamePanelBottom(String nickname, Ship ship) {
+
+        this.nickname = nickname;
 
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -99,6 +102,14 @@ public class GamePanelBottom extends JPanel {
 
         this.score += points;
         playerScore.setText("Score: " + score);
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public JPanel getLabelPanel() {
