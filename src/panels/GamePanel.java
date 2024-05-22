@@ -1,5 +1,6 @@
 package panels;
 
+import enums.GameMode;
 import game.Ship;
 
 import javax.swing.*;
@@ -11,13 +12,15 @@ public class GamePanel extends JPanel {
 
     private GamePanelTop top;
     private GamePanelBottom bottom;
-    private SettingsPanel settings;
 
     public GamePanel(Ship ship, String nickname, SettingsPanel settings) {
 
         setLayout(new BorderLayout());
 
-        this.settings = settings;
+        if (settings.getSelectedGameMode().equals(GameMode.MIRROR)) {
+            ship.setMirrorModeEnabled(true);
+        }
+
         bottom = new GamePanelBottom(nickname, ship);
         top = new GamePanelTop(ship, bottom, settings);
 
@@ -27,10 +30,10 @@ public class GamePanel extends JPanel {
         setFocusable(true);
         requestFocusInWindow();
         addKeyListener(new KeyAdapter() {
+
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
-
 
                     top.pauseGame();
                     top.displayPauseOptions();
