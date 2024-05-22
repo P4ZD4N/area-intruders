@@ -12,13 +12,15 @@ import java.util.List;
 
 public class GamePanelTop extends JPanel {
 
+    private SettingsPanel settings;
     private GamePanelBottom bottom;
     private Ship ship;
     private List<List<Enemy>> enemyRows;
     private Timer timer;
 
-    public GamePanelTop(Ship ship, GamePanelBottom bottom) {
+    public GamePanelTop(Ship ship, GamePanelBottom bottom, SettingsPanel settings) {
 
+        this.settings = settings;
         this.bottom = bottom;
         this.ship = ship;
         ship.addKeyListener(ship);
@@ -32,7 +34,9 @@ public class GamePanelTop extends JPanel {
 
         enemyRows = new ArrayList<>();
         createEnemyRows();
-        timer = new Timer(2000, e -> moveEnemies());
+
+        int delayFromSettings = (int) settings.getEnemyFallingTimeSpinner().getValue();
+        timer = new Timer(1000 * delayFromSettings, e -> moveEnemies());
         timer.start();
     }
 
@@ -40,8 +44,8 @@ public class GamePanelTop extends JPanel {
 
         final int ENEMY_WIDTH = 30;
         final int ENEMY_HEIGHT = 30;
-        final int ROW_COUNT = 10;
-        final int COLUMN_COUNT = 30;
+        final int ROW_COUNT = (int) settings.getEnemyRowsSpinner().getValue();
+        final int COLUMN_COUNT = settings.getColumns();
         final int HORIZONTAL_GAP = 10;
         final int VERTICAL_GAP = 10;
 
@@ -114,7 +118,7 @@ public class GamePanelTop extends JPanel {
                             remove(enemy);
                             row.remove(enemy);
                             repaint();
-                            bottom.incrementScore();
+                            bottom.updateScore(settings.getPointsForEnemyHit());
                             return;
                         }
                     }
