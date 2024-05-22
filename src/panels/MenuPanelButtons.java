@@ -98,7 +98,12 @@ public class MenuPanelButtons extends JPanel {
 
             JOptionPane.showMessageDialog(
                     null,
-                    "Hello " + nickname + "! Get ready!",
+                    "Hello " +
+                            nickname +
+                            "! Get ready!" +
+                            " You will get " +
+                            settings.getPointsForEnemyHit() +
+                            " points for hitting each enemy!",
                     "Get ready!",
                     JOptionPane.INFORMATION_MESSAGE);
             JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
