@@ -49,7 +49,7 @@ public class GamePanelTop extends JPanel {
         final int ENEMY_WIDTH = 30;
         final int ENEMY_HEIGHT = 30;
         final int ROW_COUNT = (int) settings.getEnemyRowsSpinner().getValue();
-        final int COLUMN_COUNT = settings.getColumns();
+        final int COLUMN_COUNT = (int) settings.getEnemyColumnsSpinner().getValue();
         final int HORIZONTAL_GAP = 10;
         final int VERTICAL_GAP = 10;
 
