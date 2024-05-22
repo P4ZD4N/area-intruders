@@ -2,6 +2,7 @@ package panels;
 
 import buttons.DifficultyButton;
 import buttons.GameModeButton;
+import enums.GameMode;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -23,6 +24,7 @@ public class SettingsPanel extends JPanel {
     private GameModeButton normalGameModeButton;
     private GameModeButton discoGameModeButton;
     private GameModeButton mirrorGameModeButton;
+    private GameMode selectedGameMode = GameMode.NORMAL;
 
     private JPanel enemyRowsPanel;
     private JLabel enemyRowsLabel;
@@ -82,12 +84,17 @@ public class SettingsPanel extends JPanel {
         gameModeLabel.setForeground(Color.WHITE);
 
         normalGameModeButton = new GameModeButton("Normal");
+        normalGameModeButton.addActionListener(e -> setNormalGameMode());
         normalGameModeButton.setBackground(Color.WHITE);
         normalGameModeButton.setSelected(true);
         normalGameModeButton.setAsDefault();
+
         discoGameModeButton = new GameModeButton("Disco");
+        discoGameModeButton.addActionListener(e -> setDiscoGameMode());
         discoGameModeButton.setBackground(Color.WHITE);
+
         mirrorGameModeButton = new GameModeButton("Mirror");
+        mirrorGameModeButton.addActionListener(e -> setMirrorGameMode());
         mirrorGameModeButton.setBackground(Color.WHITE);
 
         ButtonGroup gameModeButtonsGroup = new ButtonGroup();
@@ -168,6 +175,21 @@ public class SettingsPanel extends JPanel {
         enemyFallingTimeSpinner.setValue(1);
     }
 
+    private void setNormalGameMode() {
+
+        selectedGameMode = GameMode.NORMAL;
+    }
+
+    private void setDiscoGameMode() {
+
+        selectedGameMode = GameMode.DISCO;
+    }
+
+    private void setMirrorGameMode() {
+
+        selectedGameMode = GameMode.MIRROR;
+    }
+
     public void exitSettings() {
 
         Window window = SwingUtilities.getWindowAncestor(this);
@@ -188,5 +210,9 @@ public class SettingsPanel extends JPanel {
 
     public JSpinner getEnemyFallingTimeSpinner() {
         return enemyFallingTimeSpinner;
+    }
+
+    public GameMode getSelectedGameMode() {
+        return selectedGameMode;
     }
 }
