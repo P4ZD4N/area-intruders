@@ -6,12 +6,15 @@ import game.Enemy;
 import game.Ship;
 
 import javax.swing.*;
+import javax.swing.Timer;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.Iterator;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.List;
-import java.util.Random;
 
 public class GamePanelTop extends JPanel {
 
@@ -174,7 +177,7 @@ public class GamePanelTop extends JPanel {
 
         int choice = JOptionPane.showOptionDialog(
                 this,
-                "Game paused.",
+                "Game paused. Press ESC or click Resume to resume.",
                 "Pause",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
@@ -194,11 +197,28 @@ public class GamePanelTop extends JPanel {
 
     private void exitGame() {
 
+        saveScoreToFile(bottom.getNickname(), bottom.getScore());
+        JOptionPane.showMessageDialog(null, "You scored: " + bottom.getScore());
         JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
         frame.getContentPane().removeAll();
         frame.getContentPane().add(new MenuPanel());
         frame.revalidate();
         frame.repaint();
+    }
+
+    private void saveScoreToFile(String nickname, int score) {
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(currentDate);
+
+        try {
+            FileWriter writer = new FileWriter("scores.txt", true);
+            writer.write(nickname + " " + score + " " + formattedDate + "\n");
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Something went wrong with saving score to file!");
+        }
     }
 
     public Ship getShip() {
