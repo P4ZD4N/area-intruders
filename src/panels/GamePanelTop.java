@@ -1,5 +1,6 @@
 package panels;
 
+import enums.GameMode;
 import game.Bullet;
 import game.Enemy;
 import game.Ship;
@@ -8,10 +9,13 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 public class GamePanelTop extends JPanel {
 
+    private Random random = new Random();
     private SettingsPanel settings;
     private GamePanelBottom bottom;
     private Ship ship;
@@ -103,27 +107,55 @@ public class GamePanelTop extends JPanel {
 
     private void checkCollisions() {
 
-        for (Component component : getComponents()) {
+        Iterator<List<Enemy>> rowIterator = enemyRows.iterator();
 
-            if (component instanceof Bullet) {
+        while (rowIterator.hasNext()) {
 
-                Bullet bullet = (Bullet) component;
-                for (List<Enemy> row : enemyRows) {
+            List<Enemy> row = rowIterator.next();
+            Iterator<Enemy> enemyIterator = row.iterator();
 
-                    for (Enemy enemy : row) {
+            while (enemyIterator.hasNext()) {
 
+                Enemy enemy = enemyIterator.next();
+                for (Component component : getComponents()) {
+
+                    if (component instanceof Bullet) {
+
+                        Bullet bullet = (Bullet) component;
                         if (bullet.hit(enemy)) {
+
+                            System.out.println(settings.getSelectedGameMode());
+                            if (settings.getSelectedGameMode().equals(GameMode.DISCO)) {
+
+                                int red = random.nextInt(256);
+                                int green = random.nextInt(256);
+                                int blue = random.nextInt(256);
+                                Color color = new Color(red, green, blue);
+
+                                setBackground(color);
+                                bottom.getLabelPanel().setBackground(color);
+                                bottom.getButtonsPanel().setBackground(color);
+                            }
 
                             remove(bullet);
                             remove(enemy);
-                            row.remove(enemy);
+                            enemyIterator.remove();
                             repaint();
                             bottom.updateScore(settings.getPointsForEnemyHit());
-                            return;
+
+                            if (row.isEmpty()) {
+                                rowIterator.remove();
+                            }
+
+                            break;
                         }
                     }
                 }
             }
+        }
+
+        if (enemyRows.isEmpty()) {
+            createEnemyRows();
         }
     }
 
