@@ -95,9 +95,9 @@ public class GamePanelBottom extends JPanel {
         add(buttonsPanel, BorderLayout.CENTER);
     }
 
-    public void incrementScore() {
+    public void updateScore(int points) {
 
-        this.score += 1;
+        this.score += points;
         playerScore.setText("Score: " + score);
     }
 
