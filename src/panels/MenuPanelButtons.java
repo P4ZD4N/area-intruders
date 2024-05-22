@@ -2,6 +2,7 @@ package panels;
 
 import frames.InstructionsFrame;
 import frames.SettingsFrame;
+import frames.TopScoresFrame;
 import game.Ship;
 
 import javax.swing.*;
@@ -14,6 +15,7 @@ public class MenuPanelButtons extends JPanel {
     private JButton buttonPlay;
     private JButton buttonInstructions;
     private JButton buttonSettings;
+    private JButton buttonTopScores;
     private SettingsPanel settings;
     private JButton buttonExit;
 
@@ -56,6 +58,16 @@ public class MenuPanelButtons extends JPanel {
         buttonSettings.setMinimumSize(buttonSize);
         buttonSettings.setMaximumSize(buttonSize);
 
+        buttonTopScores = new JButton("Top 10 Scores");
+        buttonTopScores.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonTopScores.addActionListener(e -> displayTopScores());
+        buttonTopScores.setBackground(Color.MAGENTA);
+        buttonTopScores.setFont(new Font("Verdana", Font.BOLD, 18));
+        buttonTopScores.setForeground(Color.BLACK);
+        buttonTopScores.setPreferredSize(buttonSize);
+        buttonTopScores.setMinimumSize(buttonSize);
+        buttonTopScores.setMaximumSize(buttonSize);
+
         buttonExit = new JButton("Exit");
         buttonExit.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonExit.addActionListener(e -> exitGame());
@@ -66,12 +78,13 @@ public class MenuPanelButtons extends JPanel {
         buttonExit.setMinimumSize(buttonSize);
         buttonExit.setMaximumSize(buttonSize);
 
-        add(Box.createVerticalStrut(50));
         add(buttonPlay);
         add(Box.createVerticalStrut(20));
         add(buttonInstructions);
         add(Box.createVerticalStrut(20));
         add(buttonSettings);
+        add(Box.createVerticalStrut(20));
+        add(buttonTopScores);
         add(Box.createVerticalStrut(20));
         add(buttonExit);
     }
@@ -137,6 +150,11 @@ public class MenuPanelButtons extends JPanel {
 
         SettingsFrame settings = new SettingsFrame();
         this.settings = settings.getSettingsPanel();
+    }
+
+    public void displayTopScores() {
+
+        new TopScoresFrame();
     }
 
     public void exitGame() {
