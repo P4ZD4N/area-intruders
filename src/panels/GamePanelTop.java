@@ -183,7 +183,7 @@ public class GamePanelTop extends JPanel {
                 options[0]
         );
 
-        if (choice == JOptionPane.YES_OPTION) {
+        if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
 
             resumeGame();
         } else if (choice == JOptionPane.NO_OPTION) {
