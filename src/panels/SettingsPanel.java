@@ -10,8 +10,6 @@ import java.awt.*;
 
 public class SettingsPanel extends JPanel {
 
-    private int pointsForEnemyHit = 2;
-
     private JPanel difficultyButtonsPanel;
     private JLabel difficultyLabel;
     private DifficultyButton easyDifficultyButton;
@@ -175,7 +173,6 @@ public class SettingsPanel extends JPanel {
 
     private void setEasyDifficulty() {
 
-        pointsForEnemyHit = 1;
         enemyRowsSpinner.setValue(5);
         enemyColumnsSpinner.setValue(10);
         enemyFallingTimeSpinner.setValue(3);
@@ -183,7 +180,6 @@ public class SettingsPanel extends JPanel {
 
     private void setNormalDifficulty() {
 
-        pointsForEnemyHit = 2;
         enemyRowsSpinner.setValue(7);
         enemyColumnsSpinner.setValue(15);
         enemyFallingTimeSpinner.setValue(2);
@@ -191,7 +187,6 @@ public class SettingsPanel extends JPanel {
 
     private void setHardDifficulty() {
 
-        pointsForEnemyHit = 3;
         enemyRowsSpinner.setValue(10);
         enemyColumnsSpinner.setValue(25);
         enemyFallingTimeSpinner.setValue(1);
