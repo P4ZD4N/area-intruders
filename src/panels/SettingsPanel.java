@@ -10,7 +10,6 @@ import java.awt.*;
 
 public class SettingsPanel extends JPanel {
 
-    private int columns = 15;
     private int pointsForEnemyHit = 2;
 
     private JPanel difficultyButtonsPanel;
@@ -29,6 +28,10 @@ public class SettingsPanel extends JPanel {
     private JPanel enemyRowsPanel;
     private JLabel enemyRowsLabel;
     private JSpinner enemyRowsSpinner;
+
+    private JPanel enemyColumnsPanel;
+    private JLabel enemyColumnsLabel;
+    private JSpinner enemyColumnsSpinner;
 
     private JPanel enemyFallingTimePanel;
     private JLabel enemyFallingTimeLabel;
@@ -123,6 +126,22 @@ public class SettingsPanel extends JPanel {
         enemyRowsPanel.add(enemyRowsLabel);
         enemyRowsPanel.add(enemyRowsSpinner);
 
+        enemyColumnsPanel = new JPanel(new FlowLayout());
+        enemyColumnsPanel.setBackground(Color.BLACK);
+        enemyColumnsPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
+
+        enemyColumnsLabel = new JLabel("Enemy columns:");
+        enemyColumnsLabel.setForeground(Color.WHITE);
+
+        enemyColumnsSpinner = new JSpinner();
+        enemyColumnsSpinner.setPreferredSize(new Dimension(50, enemyColumnsSpinner.getPreferredSize().height));
+        enemyColumnsSpinner.setValue(15);
+        ((SpinnerNumberModel) enemyColumnsSpinner.getModel()).setMinimum(1);
+        ((SpinnerNumberModel) enemyColumnsSpinner.getModel()).setMaximum(30);
+
+        enemyColumnsPanel.add(enemyColumnsLabel);
+        enemyColumnsPanel.add(enemyColumnsSpinner);
+
         enemyFallingTimePanel = new JPanel(new FlowLayout());
         enemyFallingTimePanel.setBackground(Color.BLACK);
         enemyFallingTimePanel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -149,29 +168,32 @@ public class SettingsPanel extends JPanel {
         add(difficultyButtonsPanel);
         add(gameModePanel);
         add(enemyRowsPanel);
+        add(enemyColumnsPanel);
         add(enemyFallingTimePanel);
         add(saveButton);
     }
 
     private void setEasyDifficulty() {
 
-        columns = 10;
         pointsForEnemyHit = 1;
         enemyRowsSpinner.setValue(5);
+        enemyColumnsSpinner.setValue(10);
         enemyFallingTimeSpinner.setValue(3);
     }
 
     private void setNormalDifficulty() {
 
+        pointsForEnemyHit = 2;
         enemyRowsSpinner.setValue(7);
+        enemyColumnsSpinner.setValue(15);
         enemyFallingTimeSpinner.setValue(2);
     }
 
     private void setHardDifficulty() {
 
-        columns = 25;
         pointsForEnemyHit = 3;
         enemyRowsSpinner.setValue(10);
+        enemyColumnsSpinner.setValue(25);
         enemyFallingTimeSpinner.setValue(1);
     }
 
@@ -196,16 +218,25 @@ public class SettingsPanel extends JPanel {
         window.dispose();
     }
 
-    public int getColumns() {
-        return columns;
-    }
-
     public int getPointsForEnemyHit() {
-        return pointsForEnemyHit;
+
+        int enemyRows = (int) getEnemyRowsSpinner().getValue();
+        int enemyColumns = (int) getEnemyColumnsSpinner().getValue();
+        int enemyFallingTime = (int) getEnemyFallingTimeSpinner().getValue();
+
+        int rowPoints = (enemyRows <= 5) ? 1 : (enemyRows <= 8) ? 2 : 3;
+        int columnPoints = (enemyColumns <= 10) ? 1 : (enemyColumns <= 20) ? 2 : 3;
+        int timePoints = (enemyFallingTime == 1) ? 3 : (enemyFallingTime == 2) ? 2 : 1;
+
+        return rowPoints + columnPoints + timePoints;
     }
 
     public JSpinner getEnemyRowsSpinner() {
         return enemyRowsSpinner;
+    }
+
+    public JSpinner getEnemyColumnsSpinner() {
+        return enemyColumnsSpinner;
     }
 
     public JSpinner getEnemyFallingTimeSpinner() {
