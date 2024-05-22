@@ -198,12 +198,35 @@ public class GamePanelTop extends JPanel {
     private void exitGame() {
 
         saveScoreToFile(bottom.getNickname(), bottom.getScore());
-        JOptionPane.showMessageDialog(null, "You scored: " + bottom.getScore());
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.getContentPane().removeAll();
-        frame.getContentPane().add(new MenuPanel());
-        frame.revalidate();
-        frame.repaint();
+
+        Object[] options = {"Yes", "No"};
+
+        int choice = JOptionPane.showOptionDialog(
+                this,
+                "You scored: " + bottom.getScore() + "! Do you want to play again?",
+                "Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+
+        if (choice == JOptionPane.YES_OPTION) {
+
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.getContentPane().removeAll();
+            frame.getContentPane().add(new GamePanel(ship, bottom.getNickname(), settings));
+            frame.revalidate();
+            frame.repaint();
+        } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+
+            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+            frame.getContentPane().removeAll();
+            frame.getContentPane().add(new MenuPanel());
+            frame.revalidate();
+            frame.repaint();
+        }
     }
 
     private void saveScoreToFile(String nickname, int score) {
