@@ -124,7 +124,6 @@ public class GamePanelTop extends JPanel {
                         Bullet bullet = (Bullet) component;
                         if (bullet.hit(enemy)) {
 
-                            System.out.println(settings.getSelectedGameMode());
                             if (settings.getSelectedGameMode().equals(GameMode.DISCO)) {
 
                                 int red = random.nextInt(256);
