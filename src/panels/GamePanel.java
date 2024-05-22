@@ -11,13 +11,15 @@ public class GamePanel extends JPanel {
 
     private GamePanelTop top;
     private GamePanelBottom bottom;
+    private SettingsPanel settings;
 
-    public GamePanel(Ship ship, String nickname) {
+    public GamePanel(Ship ship, String nickname, SettingsPanel settings) {
 
         setLayout(new BorderLayout());
 
+        this.settings = settings;
         bottom = new GamePanelBottom(nickname, ship);
-        top = new GamePanelTop(ship, bottom);
+        top = new GamePanelTop(ship, bottom, settings);
 
         add(top, BorderLayout.CENTER);
         add(bottom, BorderLayout.SOUTH);
