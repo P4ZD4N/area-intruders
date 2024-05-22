@@ -1,6 +1,7 @@
 package panels;
 
 import frames.InstructionsFrame;
+import frames.SettingsFrame;
 import game.Ship;
 
 import javax.swing.*;
@@ -9,8 +10,11 @@ import java.awt.*;
 public class MenuPanelButtons extends JPanel {
 
     private MenuPanelCenterRight menuPanelCenterRight;
+    private Dimension buttonSize;
     private JButton buttonPlay;
     private JButton buttonInstructions;
+    private JButton buttonSettings;
+    private SettingsPanel settings;
     private JButton buttonExit;
 
     public MenuPanelButtons(MenuPanelCenterRight menuPanelCenterRight) {
@@ -20,13 +24,17 @@ public class MenuPanelButtons extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         setBackground(Color.BLACK);
 
+        buttonSize = new Dimension(300, 75);
+
         buttonPlay = new JButton("Play");
         buttonPlay.setAlignmentX(Component.CENTER_ALIGNMENT);
         buttonPlay.addActionListener(e -> startGame());
         buttonPlay.setBackground(Color.CYAN);
         buttonPlay.setFont(new Font("Arial", Font.BOLD, 18));
         buttonPlay.setForeground(Color.BLACK);
-        buttonPlay.setMargin(new Insets(20, 95, 20, 95));
+        buttonPlay.setPreferredSize(buttonSize);
+        buttonPlay.setMinimumSize(buttonSize);
+        buttonPlay.setMaximumSize(buttonSize);
 
         buttonInstructions = new JButton("Instructions");
         buttonInstructions.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -34,7 +42,19 @@ public class MenuPanelButtons extends JPanel {
         buttonInstructions.setBackground(Color.GREEN);
         buttonInstructions.setFont(new Font("Arial", Font.BOLD, 18));
         buttonInstructions.setForeground(Color.BLACK);
-        buttonInstructions.setMargin(new Insets(20, 50, 20, 50));
+        buttonInstructions.setPreferredSize(buttonSize);
+        buttonInstructions.setMinimumSize(buttonSize);
+        buttonInstructions.setMaximumSize(buttonSize);
+
+        buttonSettings = new JButton("Settings");
+        buttonSettings.setAlignmentX(Component.CENTER_ALIGNMENT);
+        buttonSettings.addActionListener(e -> displayOptions());
+        buttonSettings.setBackground(Color.ORANGE);
+        buttonSettings.setFont(new Font("Verdana", Font.BOLD, 18));
+        buttonSettings.setForeground(Color.BLACK);
+        buttonSettings.setPreferredSize(buttonSize);
+        buttonSettings.setMinimumSize(buttonSize);
+        buttonSettings.setMaximumSize(buttonSize);
 
         buttonExit = new JButton("Exit");
         buttonExit.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -42,12 +62,16 @@ public class MenuPanelButtons extends JPanel {
         buttonExit.setBackground(Color.RED);
         buttonExit.setFont(new Font("Arial", Font.BOLD, 18));
         buttonExit.setForeground(Color.BLACK);
-        buttonExit.setMargin(new Insets(20, 95, 20, 95));
+        buttonExit.setPreferredSize(buttonSize);
+        buttonExit.setMinimumSize(buttonSize);
+        buttonExit.setMaximumSize(buttonSize);
 
         add(Box.createVerticalStrut(50));
         add(buttonPlay);
         add(Box.createVerticalStrut(20));
         add(buttonInstructions);
+        add(Box.createVerticalStrut(20));
+        add(buttonSettings);
         add(Box.createVerticalStrut(20));
         add(buttonExit);
     }
@@ -57,6 +81,11 @@ public class MenuPanelButtons extends JPanel {
         String nickname = menuPanelCenterRight.getMenuPanelCenterRightTop().getNicknameField().getText();
         boolean isShip1Selected = menuPanelCenterRight.getMenuPanelCenterRightBottom().getSubmitShipIcon1().isSelected();
         boolean isShip2Selected = menuPanelCenterRight.getMenuPanelCenterRightBottom().getSubmitShipIcon2().isSelected();
+
+        if (settings == null) {
+
+            settings = new SettingsPanel();
+        }
 
         if (nickname.isBlank()) {
 
@@ -78,12 +107,14 @@ public class MenuPanelButtons extends JPanel {
             if (isShip1Selected) {
                 frame.getContentPane().add(new GamePanel(
                         new Ship(new ImageIcon("src/img/1.png")),
-                        nickname
+                        nickname,
+                        settings
                 ));
             } else if (isShip2Selected) {
                 frame.getContentPane().add(new GamePanel(
                         new Ship(new ImageIcon("src/img/2.png")),
-                        nickname
+                        nickname,
+                        settings
                 ));
             }
 
@@ -95,6 +126,12 @@ public class MenuPanelButtons extends JPanel {
     public void displayInstructions() {
 
         new InstructionsFrame();
+    }
+
+    public void displayOptions() {
+
+        SettingsFrame settings = new SettingsFrame();
+        this.settings = settings.getSettingsPanel();
     }
 
     public void exitGame() {
