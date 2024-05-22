@@ -7,6 +7,7 @@ import java.awt.event.KeyListener;
 
 public class Ship extends JLabel implements KeyListener {
 
+    private boolean isMirrorModeEnabled = false;
     private Action moveLeftAction;
     private Action moveRightAction;
     private Action stopAction;
@@ -23,14 +24,14 @@ public class Ship extends JLabel implements KeyListener {
         moveLeftAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dx = -SPEED;
+                dx = isMirrorModeEnabled ? SPEED : -SPEED;
             }
         };
 
         moveRightAction = new AbstractAction() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                dx = SPEED;
+                dx = isMirrorModeEnabled ? -SPEED : SPEED;
             }
         };
 
@@ -71,9 +72,19 @@ public class Ship extends JLabel implements KeyListener {
     public void keyPressed(KeyEvent e) {
 
         int keyCode = e.getKeyCode();
-        switch (keyCode) {
-            case KeyEvent.VK_LEFT -> moveLeftAction.actionPerformed(null);
-            case KeyEvent.VK_RIGHT -> moveRightAction.actionPerformed(null);
+
+        if (isMirrorModeEnabled) {
+
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT -> moveRightAction.actionPerformed(null);
+                case KeyEvent.VK_RIGHT -> moveLeftAction.actionPerformed(null);
+            }
+        } else {
+
+            switch (keyCode) {
+                case KeyEvent.VK_LEFT -> moveLeftAction.actionPerformed(null);
+                case KeyEvent.VK_RIGHT -> moveRightAction.actionPerformed(null);
+            }
         }
     }
 
@@ -104,6 +115,14 @@ public class Ship extends JLabel implements KeyListener {
         Bullet bullet = new Bullet(bulletX, bulletY);
         getParent().add(bullet);
         bullet.move();
+    }
+
+    public boolean isMirrorModeEnabled() {
+        return isMirrorModeEnabled;
+    }
+
+    public void setMirrorModeEnabled(boolean mirrorModeEnabled) {
+        isMirrorModeEnabled = mirrorModeEnabled;
     }
 
     public Action getMoveLeftAction() {
