@@ -222,8 +222,14 @@ public class SettingsPanel extends JPanel {
         int rowPoints = (enemyRows <= 5) ? 1 : (enemyRows <= 8) ? 2 : 3;
         int columnPoints = (enemyColumns <= 10) ? 1 : (enemyColumns <= 20) ? 2 : 3;
         int timePoints = (enemyFallingTime == 1) ? 3 : (enemyFallingTime == 2) ? 2 : 1;
+        int gameModePints = switch (selectedGameMode) {
 
-        return rowPoints + columnPoints + timePoints;
+            case NORMAL -> 0;
+            case DISCO -> 1;
+            case MIRROR -> 2;
+        };
+
+        return rowPoints + columnPoints + timePoints + gameModePints;
     }
 
     public JSpinner getEnemyRowsSpinner() {
