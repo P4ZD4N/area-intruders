@@ -10,6 +10,11 @@
 
 
 
+## 👀 About
+
+Area Intruders is game based on classic and iconic Space Invaders - arcade game, in which player controls the ship trying to shoot down approaching enemies. Created with usage of Swing and AWT libraries, which provide powerful tools for building GUI and managing events within game.
+
+
 ## 🔧 Tech Stack
 
 - Java (OOP, Multithreading, Streams, Lambdas)
