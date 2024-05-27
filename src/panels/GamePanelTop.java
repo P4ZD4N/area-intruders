@@ -85,6 +85,7 @@ public class GamePanelTop extends JPanel {
                 int shipBottomY = shipY + ship.getHeight();
                 if (enemyBottomY >= shipY && enemyY <= shipBottomY) {
                     timer.stop();
+                    JOptionPane.showMessageDialog(null, "Enemies reached the ship! The end of game!");
                     exitGame();
                     return;
                 }
