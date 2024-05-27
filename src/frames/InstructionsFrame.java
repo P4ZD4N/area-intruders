@@ -5,6 +5,8 @@ import javax.swing.*;
 
 public class InstructionsFrame extends JFrame {
 
+    private InstructionsPanel instructionsPanel;
+
     public InstructionsFrame() {
 
         super("Instructions");
@@ -14,7 +16,7 @@ public class InstructionsFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        InstructionsPanel instructionsPanel = new InstructionsPanel();
+        instructionsPanel = new InstructionsPanel();
         add(instructionsPanel);
     }
 }
