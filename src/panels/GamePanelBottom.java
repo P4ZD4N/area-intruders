@@ -10,23 +10,25 @@ import java.awt.event.MouseEvent;
 public class GamePanelBottom extends JPanel {
 
     private String nickname;
+
     private JPanel labelPanel;
     private JPanel buttonsPanel;
+
     private JLabel playerNickname;
     private JLabel playerScore;
+
     private JButton moveLeftButton;
     private JButton shootButton;
     private JButton moveRightButton;
+
     private int score = 0;
-    private GamePanel gamePanel;
 
     public GamePanelBottom(String nickname, GamePanel gamePanel, Ship ship) {
 
-        this.nickname = nickname;
-        this.gamePanel = gamePanel;
-
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
+
+        this.nickname = nickname;
 
         labelPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         labelPanel.setBackground(Color.BLACK);
@@ -50,6 +52,7 @@ public class GamePanelBottom extends JPanel {
         moveLeftButton = new JButton("<");
         moveLeftButton.setBackground(Color.WHITE);
         moveLeftButton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getMoveLeftAction().actionPerformed(null);
@@ -65,10 +68,10 @@ public class GamePanelBottom extends JPanel {
         moveLeftButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
         buttonsPanel.add(moveLeftButton);
 
-
         shootButton = new JButton("Shoot");
         shootButton.setBackground(Color.WHITE);
         shootButton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getShootAction().actionPerformed(null);
@@ -87,6 +90,7 @@ public class GamePanelBottom extends JPanel {
         moveRightButton = new JButton(">");
         moveRightButton.setBackground(Color.WHITE);
         moveRightButton.addMouseListener(new MouseAdapter() {
+
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getMoveRightAction().actionPerformed(null);
@@ -100,7 +104,6 @@ public class GamePanelBottom extends JPanel {
             }
         });
         moveRightButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
-
         buttonsPanel.add(moveRightButton);
 
         add(buttonsPanel, BorderLayout.CENTER);
@@ -116,71 +119,15 @@ public class GamePanelBottom extends JPanel {
         return nickname;
     }
 
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
-    }
-
     public JPanel getLabelPanel() {
         return labelPanel;
-    }
-
-    public void setLabelPanel(JPanel labelPanel) {
-        this.labelPanel = labelPanel;
     }
 
     public int getScore() {
         return score;
     }
 
-    public void setScore(int score) {
-        this.score = score;
-    }
-
-    public JButton getMoveRightButton() {
-        return moveRightButton;
-    }
-
-    public void setMoveRightButton(JButton moveRightButton) {
-        this.moveRightButton = moveRightButton;
-    }
-
-    public JButton getShootButton() {
-        return shootButton;
-    }
-
-    public void setShootButton(JButton shootButton) {
-        this.shootButton = shootButton;
-    }
-
-    public JLabel getPlayerScore() {
-        return playerScore;
-    }
-
-    public void setPlayerScore(JLabel playerScore) {
-        this.playerScore = playerScore;
-    }
-
-    public JButton getMoveLeftButton() {
-        return moveLeftButton;
-    }
-
-    public void setMoveLeftButton(JButton moveLeftButton) {
-        this.moveLeftButton = moveLeftButton;
-    }
-
     public JPanel getButtonsPanel() {
         return buttonsPanel;
-    }
-
-    public void setButtonsPanel(JPanel buttonsPanel) {
-        this.buttonsPanel = buttonsPanel;
-    }
-
-    public JLabel getPlayerNickname() {
-        return playerNickname;
-    }
-
-    public void setPlayerNickname(JLabel playerNickname) {
-        this.playerNickname = playerNickname;
     }
 }
