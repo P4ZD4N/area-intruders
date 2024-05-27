@@ -6,6 +6,8 @@ import javax.swing.*;
 
 public class TopScoresFrame extends JFrame {
 
+    private TopScoresPanel topScoresPanel;
+
     public TopScoresFrame() {
 
         super("Top 10 Scores");
@@ -15,7 +17,7 @@ public class TopScoresFrame extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-        TopScoresPanel topScoresPanel = new TopScoresPanel();
+        topScoresPanel = new TopScoresPanel();
         add(topScoresPanel);
     }
 }
