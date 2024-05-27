@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class TopScoresPanel extends JPanel {
 
-    List<List<String>> games = new ArrayList<>();
+    private List<List<String>> games = new ArrayList<>();
     private JTable topScoresTable;
 
     public TopScoresPanel() {
