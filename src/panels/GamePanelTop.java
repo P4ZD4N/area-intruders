@@ -12,7 +12,6 @@ import java.awt.*;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.util.List;
 
@@ -79,11 +78,14 @@ public class GamePanelTop extends JPanel {
             for (Enemy enemy : row) {
 
                 enemy.setLocation(enemy.getX(), enemy.getY() + enemy.getHeight());
+
                 int enemyY = enemy.getY();
                 int enemyBottomY = enemyY + enemy.getHeight();
                 int shipY = ship.getY();
                 int shipBottomY = shipY + ship.getHeight();
+
                 if (enemyBottomY >= shipY && enemyY <= shipBottomY) {
+
                     timer.stop();
                     JOptionPane.showMessageDialog(null, "Enemies reached the ship! The end of game!");
                     exitGame();
@@ -147,6 +149,7 @@ public class GamePanelTop extends JPanel {
                             bottom.updateScore(settings.getPointsForEnemyHit());
 
                             if (row.isEmpty()) {
+
                                 rowIterator.remove();
                             }
 
@@ -158,16 +161,19 @@ public class GamePanelTop extends JPanel {
         }
 
         if (enemyRows.isEmpty()) {
+
             createEnemyRows();
         }
     }
 
     public void pauseGame() {
+
         timer.stop();
         ship.removeKeyListener(ship);
     }
 
     public void resumeGame() {
+
         timer.start();
         ship.addKeyListener(ship);
     }
@@ -237,19 +243,13 @@ public class GamePanelTop extends JPanel {
         String formattedDate = dateFormat.format(currentDate);
 
         try {
+
             FileWriter writer = new FileWriter("scores.txt", true);
             writer.write(nickname + " " + score + " " + formattedDate + "\n");
             writer.close();
         } catch (IOException e) {
+
             System.out.println("Something went wrong with saving score to file!");
         }
-    }
-
-    public Ship getShip() {
-        return ship;
-    }
-
-    public void setShip(Ship ship) {
-        this.ship = ship;
     }
 }
