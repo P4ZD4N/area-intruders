@@ -7,8 +7,11 @@ import java.awt.*;
 public class InstructionsPanel extends JPanel {
 
     private JLabel labelTitle;
+
     private JList<String> listOfInstructions;
+
     private JButton buttonExit;
+
     private JPanel buttonPanel;
     private JPanel centerPanel;
 
@@ -64,55 +67,11 @@ public class InstructionsPanel extends JPanel {
 
         add(labelTitle, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
-
-        revalidate();
-        repaint();
     }
 
     public void exitInstructions() {
 
         Window window = SwingUtilities.getWindowAncestor(this);
         window.dispose();
-    }
-
-    public JLabel getLabelTitle() {
-        return labelTitle;
-    }
-
-    public void setLabelTitle(JLabel labelTitle) {
-        this.labelTitle = labelTitle;
-    }
-
-
-    public JPanel getCenterPanel() {
-        return centerPanel;
-    }
-
-    public void setCenterPanel(JPanel centerPanel) {
-        this.centerPanel = centerPanel;
-    }
-
-    public JPanel getButtonPanel() {
-        return buttonPanel;
-    }
-
-    public void setButtonPanel(JPanel buttonPanel) {
-        this.buttonPanel = buttonPanel;
-    }
-
-    public JButton getButtonExit() {
-        return buttonExit;
-    }
-
-    public void setButtonExit(JButton buttonExit) {
-        this.buttonExit = buttonExit;
-    }
-
-    public JList<String> getListOfInstructions() {
-        return listOfInstructions;
-    }
-
-    public void setListOfInstructions(JList<String> listOfInstructions) {
-        this.listOfInstructions = listOfInstructions;
     }
 }
