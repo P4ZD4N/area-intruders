@@ -6,8 +6,6 @@ import java.awt.*;
 
 public class InstructionsPanel extends JPanel {
 
-    private JLabel labelTitle;
-
     private JList<String> listOfInstructions;
 
     private JButton buttonExit;
@@ -20,11 +18,6 @@ public class InstructionsPanel extends JPanel {
         setBackground(Color.BLACK);
         setBorder(new EmptyBorder(50, 0, 50, 0));
         setLayout(new BorderLayout());
-
-        labelTitle = new JLabel("Instructions");
-        labelTitle.setFont(new Font("Arial", Font.BOLD, 48));
-        labelTitle.setForeground(Color.WHITE);
-        labelTitle.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
         String[] instructions = {
                 "1. You must enter your nickname in main menu.",
@@ -65,7 +58,6 @@ public class InstructionsPanel extends JPanel {
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(buttonPanel);
 
-        add(labelTitle, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
     }
 
