@@ -18,10 +18,12 @@ public class GamePanelBottom extends JPanel {
     private JButton shootButton;
     private JButton moveRightButton;
     private int score = 0;
+    private GamePanel gamePanel;
 
-    public GamePanelBottom(String nickname, Ship ship) {
+    public GamePanelBottom(String nickname, GamePanel gamePanel, Ship ship) {
 
         this.nickname = nickname;
+        this.gamePanel = gamePanel;
 
         setLayout(new BorderLayout());
         setBackground(Color.BLACK);
@@ -51,11 +53,13 @@ public class GamePanelBottom extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getMoveLeftAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 ship.getStopAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
         });
         moveLeftButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
@@ -68,11 +72,13 @@ public class GamePanelBottom extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getShootAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 ship.getStopAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
         });
         shootButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");
@@ -84,11 +90,13 @@ public class GamePanelBottom extends JPanel {
             @Override
             public void mousePressed(MouseEvent e) {
                 ship.getMoveRightAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 ship.getStopAction().actionPerformed(null);
+                gamePanel.requestFocusInWindow();
             }
         });
         moveRightButton.getInputMap().put(KeyStroke.getKeyStroke("SPACE"), "none");

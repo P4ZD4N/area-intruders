@@ -21,7 +21,7 @@ public class GamePanel extends JPanel {
             ship.setMirrorModeEnabled(true);
         }
 
-        bottom = new GamePanelBottom(nickname, ship);
+        bottom = new GamePanelBottom(nickname, this, ship);
         top = new GamePanelTop(ship, bottom, settings);
 
         add(top, BorderLayout.CENTER);
