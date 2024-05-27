@@ -7,7 +7,7 @@ import java.awt.*;
 public class InstructionsPanel extends JPanel {
 
     private JLabel labelTitle;
-    private JLabel labelInstructions;
+    private JList<String> listOfInstructions;
     private JButton buttonExit;
     private JPanel buttonPanel;
     private JPanel centerPanel;
@@ -23,15 +23,27 @@ public class InstructionsPanel extends JPanel {
         labelTitle.setForeground(Color.WHITE);
         labelTitle.setHorizontalAlignment(SwingConstants.HORIZONTAL);
 
-        labelInstructions = new JLabel(
-            "<html>" +
-                "<p>1. You can enter your nickname in main menu.</p>" +
-                "<p>2. You can set ship appearance in main menu.</p>" +
-                "<p>3. You can set difficulty level in main menu.</p>" +
-                "</html>"
-        );
-        labelInstructions.setFont(new Font("Arial", Font.PLAIN, 18));
-        labelInstructions.setForeground(Color.WHITE);
+        String[] instructions = {
+                "1. You must enter your nickname in main menu.",
+                "2. You can set ship appearance in main menu.",
+                "3. You can set difficulty level in settings.",
+                "4. You can customize difficulty level depends",
+                "    on your preferences in settings.",
+                "5. You can set one of three game modes.",
+                "6. You can see top scores in TOP 10 Scores.",
+                "7. You can play using arrows and space on your",
+                "    keyboard or using buttons visible in game panel.",
+                "8. Points you earn for hitting an opponent depends",
+                "    on the difficulty settings and selected game mode.",
+                "9. Game ends when enemies reach the ship's line ",
+                "    or when you finish it by clicking ESC -> Exit."
+        };
+
+        listOfInstructions = new JList<>(instructions);
+        listOfInstructions.setFixedCellWidth(500);
+        listOfInstructions.setFont(new Font("Arial", Font.PLAIN, 18));
+        listOfInstructions.setBackground(Color.BLACK);
+        listOfInstructions.setForeground(Color.WHITE);
 
         buttonExit = new JButton("Exit");
         buttonExit.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -45,8 +57,8 @@ public class InstructionsPanel extends JPanel {
         centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
         centerPanel.setBackground(Color.BLACK);
-        centerPanel.add(Box.createVerticalStrut(50));
-        centerPanel.add(labelInstructions);
+        centerPanel.add(Box.createVerticalStrut(20));
+        centerPanel.add(listOfInstructions);
         centerPanel.add(Box.createVerticalStrut(20));
         centerPanel.add(buttonPanel);
 
@@ -96,11 +108,11 @@ public class InstructionsPanel extends JPanel {
         this.buttonExit = buttonExit;
     }
 
-    public JLabel getLabelInstructions() {
-        return labelInstructions;
+    public JList<String> getListOfInstructions() {
+        return listOfInstructions;
     }
 
-    public void setLabelInstructions(JLabel labelInstructions) {
-        this.labelInstructions = labelInstructions;
+    public void setListOfInstructions(JList<String> listOfInstructions) {
+        this.listOfInstructions = listOfInstructions;
     }
 }
