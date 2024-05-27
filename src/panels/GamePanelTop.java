@@ -180,9 +180,14 @@ public class GamePanelTop extends JPanel {
 
     public void displayPauseOptions() {
 
-        Object[] options = {"Resume", "Exit"};
+        int choice = showPauseDialog();
+        handlePauseChoice(choice);
+    }
 
-        int choice = JOptionPane.showOptionDialog(
+    private int showPauseDialog() {
+
+        Object[] options = {"Resume", "Exit"};
+        return JOptionPane.showOptionDialog(
                 this,
                 "Game paused. Press ESC or click Resume to resume.",
                 "Pause",
@@ -192,25 +197,31 @@ public class GamePanelTop extends JPanel {
                 options,
                 options[0]
         );
+    }
+
+    private void handlePauseChoice(int choice) {
 
         if (choice == JOptionPane.YES_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-
             resumeGame();
         } else if (choice == JOptionPane.NO_OPTION) {
-
             exitGame();
         }
     }
 
     private void exitGame() {
-
         saveScoreToFile(bottom.getNickname(), bottom.getScore());
+
+        int choice = showExitDialog(bottom.getScore());
+        handleExitChoice(choice);
+    }
+
+    private int showExitDialog(int score) {
 
         Object[] options = {"Yes", "No"};
 
-        int choice = JOptionPane.showOptionDialog(
+        return JOptionPane.showOptionDialog(
                 this,
-                "You scored: " + bottom.getScore() + "! Do you want to play again?",
+                "You scored: " + score + "! Do you want to play again?",
                 "Exit",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.INFORMATION_MESSAGE,
@@ -218,22 +229,21 @@ public class GamePanelTop extends JPanel {
                 options,
                 options[0]
         );
+    }
+
+    private void handleExitChoice(int choice) {
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
 
         if (choice == JOptionPane.YES_OPTION) {
-
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            frame.getContentPane().removeAll();
             frame.getContentPane().add(new GamePanel(ship, bottom.getNickname(), settings));
-            frame.revalidate();
-            frame.repaint();
         } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            frame.getContentPane().removeAll();
             frame.getContentPane().add(new MenuPanel());
-            frame.revalidate();
-            frame.repaint();
         }
+
+        frame.revalidate();
+        frame.repaint();
     }
 
     private void saveScoreToFile(String nickname, int score) {
@@ -249,7 +259,10 @@ public class GamePanelTop extends JPanel {
             writer.close();
         } catch (IOException e) {
 
-            System.out.println("Something went wrong with saving score to file!");
+            JOptionPane.showMessageDialog(
+                    null,
+                    "An error occurred while saving the score to the file: " + e.getMessage()
+            );
         }
     }
 }
