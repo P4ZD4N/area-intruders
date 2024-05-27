@@ -7,11 +7,15 @@ public class MenuPanelCenterRightBottom extends JPanel {
 
     private MenuShipPanel shipPanelLeft;
     private MenuShipPanel shipPanelRight;
+
     private JLabel shipIcon1;
     private JLabel shipIcon2;
+
     private JRadioButton submitShipIcon1;
     private JRadioButton submitShipIcon2;
+
     private ButtonGroup buttonGroup;
+
     private GridBagConstraints gbc;
 
     public MenuPanelCenterRightBottom() {
@@ -55,67 +59,7 @@ public class MenuPanelCenterRightBottom extends JPanel {
         add(shipPanelRight, gbc);
     }
 
-    public MenuShipPanel getShipPanelLeft() {
-        return shipPanelLeft;
-    }
-
-    public void setShipPanelLeft(MenuShipPanel shipPanelLeft) {
-        this.shipPanelLeft = shipPanelLeft;
-    }
-
-    public ButtonGroup getButtonGroup() {
-        return buttonGroup;
-    }
-
-    public void setButtonGroup(ButtonGroup buttonGroup) {
-        this.buttonGroup = buttonGroup;
-    }
-
-    public GridBagConstraints getGbc() {
-        return gbc;
-    }
-
-    public void setGbc(GridBagConstraints gbc) {
-        this.gbc = gbc;
-    }
-
-    public JRadioButton getSubmitShipIcon2() {
-        return submitShipIcon2;
-    }
-
-    public void setSubmitShipIcon2(JRadioButton submitShipIcon2) {
-        this.submitShipIcon2 = submitShipIcon2;
-    }
-
     public JRadioButton getSubmitShipIcon1() {
         return submitShipIcon1;
-    }
-
-    public void setSubmitShipIcon1(JRadioButton submitShipIcon1) {
-        this.submitShipIcon1 = submitShipIcon1;
-    }
-
-    public JLabel getShipIcon2() {
-        return shipIcon2;
-    }
-
-    public void setShipIcon2(JLabel shipIcon2) {
-        this.shipIcon2 = shipIcon2;
-    }
-
-    public JLabel getShipIcon1() {
-        return shipIcon1;
-    }
-
-    public void setShipIcon1(JLabel shipIcon1) {
-        this.shipIcon1 = shipIcon1;
-    }
-
-    public MenuShipPanel getShipPanelRight() {
-        return shipPanelRight;
-    }
-
-    public void setShipPanelRight(MenuShipPanel shipPanelRight) {
-        this.shipPanelRight = shipPanelRight;
     }
 }

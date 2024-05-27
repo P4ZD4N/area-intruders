@@ -7,8 +7,9 @@ import java.awt.*;
 public class MenuPanel extends JPanel {
 
     private JLabel labelTitle;
-    private MenuPanelCenter centerPanel;
     private JLabel labelAuthor;
+
+    private MenuPanelCenter centerPanel;
 
     public MenuPanel() {
 
@@ -31,32 +32,9 @@ public class MenuPanel extends JPanel {
         add(labelTitle, BorderLayout.NORTH);
         add(centerPanel, BorderLayout.CENTER);
         add(labelAuthor, BorderLayout.SOUTH);
-
-        revalidate();
-        repaint();
-    }
-
-    public JLabel getLabelTitle() {
-        return labelTitle;
-    }
-
-    public void setLabelTitle(JLabel labelTitle) {
-        this.labelTitle = labelTitle;
     }
 
     public MenuPanelCenter getCenterPanel() {
         return centerPanel;
-    }
-
-    public void setCenterPanel(MenuPanelCenter centerPanel) {
-        this.centerPanel = centerPanel;
-    }
-
-    public JLabel getLabelAuthor() {
-        return labelAuthor;
-    }
-
-    public void setLabelAuthor(JLabel labelAuthor) {
-        this.labelAuthor = labelAuthor;
     }
 }

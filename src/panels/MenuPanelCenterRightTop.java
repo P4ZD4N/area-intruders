@@ -32,19 +32,7 @@ public class MenuPanelCenterRightTop extends JPanel {
         add(nicknameField);
     }
 
-    public JLabel getLabelNickname() {
-        return labelNickname;
-    }
-
-    public void setLabelNickname(JLabel labelNickname) {
-        this.labelNickname = labelNickname;
-    }
-
     public JTextField getNicknameField() {
         return nicknameField;
-    }
-
-    public void setNicknameField(JTextField nicknameField) {
-        this.nicknameField = nicknameField;
     }
 }

@@ -24,8 +24,4 @@ public class MenuPanelCenter extends JPanel {
     public MenuPanelCenterLeft getMenuPanelCenterLeft() {
         return menuPanelCenterLeft;
     }
-
-    public MenuPanelCenterRight getMenuPanelCenterRight() {
-        return menuPanelCenterRight;
-    }
 }

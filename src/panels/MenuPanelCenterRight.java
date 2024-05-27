@@ -27,15 +27,7 @@ public class MenuPanelCenterRight extends JPanel {
         return menuPanelCenterRightBottom;
     }
 
-    public void setMenuPanelCenterRightBottom(MenuPanelCenterRightBottom menuPanelCenterRightBottom) {
-        this.menuPanelCenterRightBottom = menuPanelCenterRightBottom;
-    }
-
     public MenuPanelCenterRightTop getMenuPanelCenterRightTop() {
         return menuPanelCenterRightTop;
-    }
-
-    public void setMenuPanelCenterRightTop(MenuPanelCenterRightTop menuPanelCenterRightTop) {
-        this.menuPanelCenterRightTop = menuPanelCenterRightTop;
     }
 }
