@@ -10,13 +10,16 @@ import java.awt.*;
 
 public class MenuPanelButtons extends JPanel {
 
+    private SettingsPanel settings;
+
     private MenuPanelCenterRight menuPanelCenterRight;
+
     private Dimension buttonSize;
+
     private JButton buttonPlay;
     private JButton buttonInstructions;
     private JButton buttonSettings;
     private JButton buttonTopScores;
-    private SettingsPanel settings;
     private JButton buttonExit;
 
     public MenuPanelButtons(MenuPanelCenterRight menuPanelCenterRight) {
@@ -93,52 +96,35 @@ public class MenuPanelButtons extends JPanel {
 
         String nickname = menuPanelCenterRight.getMenuPanelCenterRightTop().getNicknameField().getText();
         boolean isShip1Selected = menuPanelCenterRight.getMenuPanelCenterRightBottom().getSubmitShipIcon1().isSelected();
-        boolean isShip2Selected = menuPanelCenterRight.getMenuPanelCenterRightBottom().getSubmitShipIcon2().isSelected();
-
-        if (settings == null) {
-
-            settings = new SettingsPanel();
-        }
 
         if (nickname.isBlank()) {
 
             JOptionPane.showMessageDialog(
                     null,
                     "Firstly enter your username!",
-                            "Enter username!",
-                            JOptionPane.WARNING_MESSAGE);
-        } else {
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    "Hello " +
-                            nickname +
-                            "! Get ready!" +
-                            " You will get " +
-                            settings.getPointsForEnemyHit() +
-                            " points for hitting each enemy!",
-                    "Get ready!",
-                    JOptionPane.INFORMATION_MESSAGE);
-            JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-            frame.getContentPane().removeAll();
-
-            if (isShip1Selected) {
-                frame.getContentPane().add(new GamePanel(
-                        new Ship(new ImageIcon("src/img/1.png")),
-                        nickname,
-                        settings
-                ));
-            } else if (isShip2Selected) {
-                frame.getContentPane().add(new GamePanel(
-                        new Ship(new ImageIcon("src/img/2.png")),
-                        nickname,
-                        settings
-                ));
-            }
-
-            frame.revalidate();
-            frame.repaint();
+                    "Enter username!",
+                    JOptionPane.WARNING_MESSAGE
+            );
+            return;
         }
+
+        if (settings == null) {
+
+            settings = new SettingsPanel();
+        }
+
+        int pointsForEnemyHit = settings.getPointsForEnemyHit();
+        String message = "Hello " + nickname + "! Get ready!" + " You will get " + pointsForEnemyHit + " points for hitting each enemy!";
+        String shipImagePath = isShip1Selected ? "src/img/1.png" : "src/img/2.png";
+        ImageIcon shipIcon = new ImageIcon(shipImagePath);
+
+        JOptionPane.showMessageDialog(null, message, "Get ready!", JOptionPane.INFORMATION_MESSAGE);
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+        frame.getContentPane().add(new GamePanel(new Ship(shipIcon), nickname, settings));
+        frame.revalidate();
+        frame.repaint();
     }
 
     public void displayInstructions() {
@@ -163,26 +149,7 @@ public class MenuPanelButtons extends JPanel {
     }
 
     public JButton getButtonPlay() {
+
         return buttonPlay;
-    }
-
-    public void setButtonPlay(JButton buttonPlay) {
-        this.buttonPlay = buttonPlay;
-    }
-
-    public JButton getButtonInstructions() {
-        return buttonInstructions;
-    }
-
-    public void setButtonInstructions(JButton buttonInstructions) {
-        this.buttonInstructions = buttonInstructions;
-    }
-
-    public JButton getButtonExit() {
-        return buttonExit;
-    }
-
-    public void setButtonExit(JButton buttonExit) {
-        this.buttonExit = buttonExit;
     }
 }
