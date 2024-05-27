@@ -21,12 +21,4 @@ public class MainFrame extends JFrame {
         getRootPane().setDefaultButton(menuPanel.getCenterPanel().getMenuPanelCenterLeft().getMenuPanelButtons().getButtonPlay());
         add(menuPanel);
     }
-
-    public MenuPanel getMenuPanel() {
-        return menuPanel;
-    }
-
-    public void setMenuPanel(MenuPanel menuPanel) {
-        this.menuPanel = menuPanel;
-    }
 }
