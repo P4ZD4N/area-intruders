@@ -7,14 +7,16 @@ import java.awt.event.KeyListener;
 
 public class Ship extends JLabel implements KeyListener {
 
+    private static final int SPEED = 5;
+
+    private int dx = 0;
+
     private boolean isMirrorModeEnabled = false;
+
     private Action moveLeftAction;
     private Action moveRightAction;
     private Action stopAction;
     private Action shootAction;
-
-    private int dx = 0;
-    private static final int SPEED = 5;
 
     public Ship(ImageIcon icon) {
 
@@ -22,29 +24,37 @@ public class Ship extends JLabel implements KeyListener {
         setIcon(icon);
 
         moveLeftAction = new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dx = isMirrorModeEnabled ? SPEED : -SPEED;
             }
         };
 
         moveRightAction = new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dx = isMirrorModeEnabled ? -SPEED : SPEED;
             }
         };
 
         stopAction = new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 dx = 0;
             }
         };
 
         shootAction = new AbstractAction() {
+
             @Override
             public void actionPerformed(ActionEvent e) {
+
                 shoot();
             }
         };
@@ -116,11 +126,6 @@ public class Ship extends JLabel implements KeyListener {
         getParent().add(bullet);
         bullet.move();
     }
-
-    public boolean isMirrorModeEnabled() {
-        return isMirrorModeEnabled;
-    }
-
     public void setMirrorModeEnabled(boolean mirrorModeEnabled) {
         isMirrorModeEnabled = mirrorModeEnabled;
     }
@@ -129,39 +134,15 @@ public class Ship extends JLabel implements KeyListener {
         return moveLeftAction;
     }
 
-    public void setMoveLeftAction(Action moveLeftAction) {
-        this.moveLeftAction = moveLeftAction;
-    }
-
-    public int getDx() {
-        return dx;
-    }
-
-    public void setDx(int dx) {
-        this.dx = dx;
-    }
-
     public Action getShootAction() {
         return shootAction;
-    }
-
-    public void setShootAction(Action shootAction) {
-        this.shootAction = shootAction;
     }
 
     public Action getStopAction() {
         return stopAction;
     }
 
-    public void setStopAction(Action stopAction) {
-        this.stopAction = stopAction;
-    }
-
     public Action getMoveRightAction() {
         return moveRightAction;
-    }
-
-    public void setMoveRightAction(Action moveRightAction) {
-        this.moveRightAction = moveRightAction;
     }
 }
