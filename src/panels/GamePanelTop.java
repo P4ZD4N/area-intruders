@@ -49,22 +49,21 @@ public class GamePanelTop extends JPanel {
 
     private void createEnemyRows() {
 
-        final int ENEMY_WIDTH = 30;
-        final int ENEMY_HEIGHT = 30;
-        final int ROW_COUNT = (int) settings.getEnemyRowsSpinner().getValue();
-        final int COLUMN_COUNT = (int) settings.getEnemyColumnsSpinner().getValue();
-        final int HORIZONTAL_GAP = 10;
-        final int VERTICAL_GAP = 10;
+        int enemyWidth = Enemy.getEnemyWidth();
+        int enemyHeight = Enemy.getEnemyHeight();
+        int rows = (int) settings.getEnemyRowsSpinner().getValue();
+        int columns = (int) settings.getEnemyColumnsSpinner().getValue();
+        int gap = 10;
 
-        for (int i = 0; i < ROW_COUNT; i++) {
+        for (int i = 0; i < rows; i++) {
 
             List<Enemy> row = new ArrayList<>();
-            for (int j = 0; j < COLUMN_COUNT; j++) {
+            for (int j = 0; j < columns; j++) {
 
                 Enemy enemy = new Enemy();
-                int x = j * (ENEMY_WIDTH + HORIZONTAL_GAP);
-                int y = i * (ENEMY_HEIGHT + VERTICAL_GAP);
-                enemy.setBounds(x, y, ENEMY_WIDTH, ENEMY_HEIGHT);
+                int x = j * (enemyWidth + gap);
+                int y = i * (enemyHeight + gap);
+                enemy.setBounds(x, y, enemyWidth, enemyHeight);
                 row.add(enemy);
                 add(enemy);
             }
