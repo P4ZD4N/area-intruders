@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GamePanelTop extends JPanel {
 
@@ -104,66 +105,63 @@ public class GamePanelTop extends JPanel {
 
         checkCollisions();
 
-        for (Component component : getComponents()) {
-            if (component instanceof Bullet bullet) {
-                bullet.move();
-            }
-        }
+        Arrays.stream(getComponents())
+                .filter(component -> component instanceof Bullet)
+                .map(component -> (Bullet) component)
+                .forEach(Bullet::move);
     }
 
     private void checkCollisions() {
 
-        Iterator<List<Enemy>> rowIterator = enemyRows.iterator();
+        enemyRows.forEach(row -> {
 
-        while (rowIterator.hasNext()) {
+            row.removeIf(enemy -> {
 
-            List<Enemy> row = rowIterator.next();
-            Iterator<Enemy> enemyIterator = row.iterator();
+               for (Bullet bullet : getBullets()) {
 
-            while (enemyIterator.hasNext()) {
+                   if (bullet.hit(enemy)) {
 
-                Enemy enemy = enemyIterator.next();
-                for (Component component : getComponents()) {
-
-                    if (component instanceof Bullet) {
-
-                        Bullet bullet = (Bullet) component;
-                        if (bullet.hit(enemy)) {
-
-                            if (settings.getSelectedGameMode().equals(GameMode.DISCO)) {
-
-                                int red = random.nextInt(256);
-                                int green = random.nextInt(256);
-                                int blue = random.nextInt(256);
-                                Color color = new Color(red, green, blue);
-
-                                setBackground(color);
-                                bottom.getLabelPanel().setBackground(color);
-                                bottom.getButtonsPanel().setBackground(color);
-                            }
-
-                            remove(bullet);
-                            remove(enemy);
-                            enemyIterator.remove();
-                            repaint();
-                            bottom.updateScore(settings.getPointsForEnemyHit());
-
-                            if (row.isEmpty()) {
-
-                                rowIterator.remove();
-                            }
-
-                            break;
-                        }
-                    }
-                }
-            }
-        }
+                       handleCollision(bullet, enemy);
+                       return true;
+                   }
+               }
+               return false;
+            });
+        });
 
         if (enemyRows.isEmpty()) {
 
             createEnemyRows();
         }
+    }
+
+    private List<Bullet> getBullets() {
+
+        return Arrays.stream(getComponents())
+                .filter(component -> component instanceof Bullet)
+                .map(component -> (Bullet) component)
+                .collect(Collectors.toList());
+    }
+
+    private void handleCollision(Bullet bullet, Enemy enemy) {
+
+        if (settings.getSelectedGameMode().equals(GameMode.DISCO)) {
+
+            setBackground(getRandomColor());
+            bottom.getLabelPanel().setBackground(getBackground());
+            bottom.getButtonsPanel().setBackground(getBackground());
+        }
+
+        remove(bullet);
+        remove(enemy);
+        repaint();
+        bottom.updateScore(settings.getPointsForEnemyHit());
+    }
+
+    private Color getRandomColor() {
+
+        Random random = new Random();
+        return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
     public void pauseGame() {
