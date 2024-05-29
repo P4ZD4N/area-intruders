@@ -59,23 +59,20 @@ public class Ship extends JLabel implements KeyListener {
             }
         };
 
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("LEFT"), "moveLeft");
-        getActionMap().put("moveLeft", moveLeftAction);
-
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("RIGHT"), "moveRight");
-        getActionMap().put("moveRight", moveRightAction);
-
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released LEFT"), "stopLeft");
-        getActionMap().put("stopLeft", stopAction);
-
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke("released RIGHT"), "stopRight");
-        getActionMap().put("stopRight", stopAction);
-
-        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "shoot");
-        getActionMap().put("shoot", shootAction);
+        setKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), "moveLeft", moveLeftAction);
+        setKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), "moveRight", moveRightAction);
+        setKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), "stopLeft", stopAction);
+        setKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), "stopRight", stopAction);
+        setKeyBinding(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), "shoot", shootAction);
 
         Timer timer = new Timer(10, e -> move());
         timer.start();
+    }
+
+    private void setKeyBinding(KeyStroke keyStroke, String actionName, Action action) {
+
+        getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW).put(keyStroke, actionName);
+        getActionMap().put(actionName, action);
     }
 
     @Override
