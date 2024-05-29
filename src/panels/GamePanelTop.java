@@ -77,7 +77,7 @@ public class GamePanelTop extends JPanel {
 
             for (Enemy enemy : row) {
 
-                enemy.setLocation(enemy.getX(), enemy.getY() + enemy.getHeight());
+                enemy.move();
 
                 int enemyY = enemy.getY();
                 int enemyBottomY = enemyY + enemy.getHeight();
