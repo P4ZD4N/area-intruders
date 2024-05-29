@@ -4,7 +4,6 @@ import javax.swing.*;
 
 public class Enemy extends JLabel {
 
-    private static final int SPEED = 5;
     private static final int WIDTH = 50;
     private static final int HEIGHT = 50;
 
@@ -16,6 +15,6 @@ public class Enemy extends JLabel {
     }
 
     public void move() {
-        setLocation(getX(), getY() + SPEED);
+        setLocation(getX(), getY() + getHeight());
     }
 }
