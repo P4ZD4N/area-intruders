@@ -18,7 +18,6 @@ import java.util.stream.Collectors;
 
 public class GamePanelTop extends JPanel {
 
-    private Random random = new Random();
     private SettingsPanel settings;
     private GamePanelBottom bottom;
     private Ship ship;
@@ -97,6 +96,65 @@ public class GamePanelTop extends JPanel {
         repaint();
     }
 
+    private void exitGame() {
+
+        saveScoreToFile(bottom.getNickname(), bottom.getScore());
+
+        int choice = showExitDialog(bottom.getScore());
+        handleExitChoice(choice);
+    }
+
+    private void saveScoreToFile(String nickname, int score) {
+
+        Date currentDate = new Date();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = dateFormat.format(currentDate);
+
+        try {
+
+            FileWriter writer = new FileWriter("scores.txt", true);
+            writer.write(nickname + " " + score + " " + formattedDate + "\n");
+            writer.close();
+        } catch (IOException e) {
+
+            JOptionPane.showMessageDialog(
+                    null,
+                    "An error occurred while saving the score to the file: " + e.getMessage()
+            );
+        }
+    }
+
+    private int showExitDialog(int score) {
+
+        Object[] options = {"Yes", "No"};
+
+        return JOptionPane.showOptionDialog(
+                this,
+                "You scored: " + score + "! Do you want to play again?",
+                "Exit",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.INFORMATION_MESSAGE,
+                null,
+                options,
+                options[0]
+        );
+    }
+
+    private void handleExitChoice(int choice) {
+
+        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
+        frame.getContentPane().removeAll();
+
+        if (choice == JOptionPane.YES_OPTION) {
+            frame.getContentPane().add(new GamePanel(ship, bottom.getNickname(), settings));
+        } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
+            frame.getContentPane().add(new MenuPanel());
+        }
+
+        frame.revalidate();
+        frame.repaint();
+    }
+
     @Override
     public void paintComponent(Graphics g) {
 
@@ -163,18 +221,6 @@ public class GamePanelTop extends JPanel {
         return new Color(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
 
-    public void pauseGame() {
-
-        timer.stop();
-        ship.removeKeyListener(ship);
-    }
-
-    public void resumeGame() {
-
-        timer.start();
-        ship.addKeyListener(ship);
-    }
-
     public void displayPauseOptions() {
 
         int choice = showPauseDialog();
@@ -205,61 +251,15 @@ public class GamePanelTop extends JPanel {
         }
     }
 
-    private void exitGame() {
-        saveScoreToFile(bottom.getNickname(), bottom.getScore());
+    public void pauseGame() {
 
-        int choice = showExitDialog(bottom.getScore());
-        handleExitChoice(choice);
+        timer.stop();
+        ship.removeKeyListener(ship);
     }
 
-    private int showExitDialog(int score) {
+    public void resumeGame() {
 
-        Object[] options = {"Yes", "No"};
-
-        return JOptionPane.showOptionDialog(
-                this,
-                "You scored: " + score + "! Do you want to play again?",
-                "Exit",
-                JOptionPane.YES_NO_OPTION,
-                JOptionPane.INFORMATION_MESSAGE,
-                null,
-                options,
-                options[0]
-        );
-    }
-
-    private void handleExitChoice(int choice) {
-
-        JFrame frame = (JFrame) SwingUtilities.getWindowAncestor(this);
-        frame.getContentPane().removeAll();
-
-        if (choice == JOptionPane.YES_OPTION) {
-            frame.getContentPane().add(new GamePanel(ship, bottom.getNickname(), settings));
-        } else if (choice == JOptionPane.NO_OPTION || choice == JOptionPane.CLOSED_OPTION) {
-            frame.getContentPane().add(new MenuPanel());
-        }
-
-        frame.revalidate();
-        frame.repaint();
-    }
-
-    private void saveScoreToFile(String nickname, int score) {
-
-        Date currentDate = new Date();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = dateFormat.format(currentDate);
-
-        try {
-
-            FileWriter writer = new FileWriter("scores.txt", true);
-            writer.write(nickname + " " + score + " " + formattedDate + "\n");
-            writer.close();
-        } catch (IOException e) {
-
-            JOptionPane.showMessageDialog(
-                    null,
-                    "An error occurred while saving the score to the file: " + e.getMessage()
-            );
-        }
+        timer.start();
+        ship.addKeyListener(ship);
     }
 }
