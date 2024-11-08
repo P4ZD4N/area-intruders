@@ -1,15 +1,6 @@
 
 # 💻 Area Intruders
 
-
-
-
-
-
-
-
-
-
 ## 👀 About
 
 Area Intruders is game based on classic and iconic Space Invaders - arcade game, in which player controls the ship trying to shoot down approaching enemies. Created with usage of Swing and AWT libraries, which provide powerful tools for building GUI and managing events within game.
@@ -49,3 +40,6 @@ Area Intruders is game based on classic and iconic Space Invaders - arcade game,
 
 ![](./demo/6.png)
 
+## 🎮 Gameplay
+
+![](./demo/1.gif)
